@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+
+
+
+/**
+*
+* Method: calculateAngleFromAcceleration(MPUReadBean mpu)
+*
+*/
+@Test
+public void testCalculateAngleFromAcceleration() throws Exception {
+//TODO: Test goes here...
+try {
+MPUReadBean mpu = new MPUReadBean(5, 5, 0, 999, 999, 999);
+CurrentMovementBean result = transform.calculateAngleFromAcceleration(mpu);
+result.printStatus();
+} catch (Exception e) {
+e.printStackTrace();
+}
+/*
+try {
+Method method = CoordinateTransform.getClass().getMethod("calculateAngleFromAcceleration", MPUReadBean.class);
+method.setAccessible(true);
+method.invoke(<Object>, <Parameters>);
+    } catch(NoSuchMethodException e) {
+    } catch(IllegalAccessException e) {
+    } catch(InvocationTargetException e) {
+    }
+    */
+    }
+
+    /**
+    *
+    * Method: calculateAngleFromGyroscope(MPUReadBean mpu)
+    *
+    */
+    @Test
+    public void testCalculateAngleFromGyroscope() throws Exception {
+    //TODO: Test goes here...
+    try {
+    MPUReadBean mpu = new MPUReadBean(999, 999, 999, 0.06, 0, 0);
+    CurrentMovementBean result;
+    result = transform.calculateAngleFromGyroscope(mpu);
+    result.printStatus();
+    Thread.sleep(500);
+    result = transform.calculateAngleFromGyroscope(mpu);
+    result.printStatus();
+    Thread.sleep(500);
+    result = transform.calculateAngleFromGyroscope(mpu);
+    result.printStatus();
+    Thread.sleep(500);
+    result = transform.calculateAngleFromGyroscope(mpu);
+    result.printStatus();
+    Thread.sleep(500);
+    result = transform.calculateAngleFromGyroscope(mpu);
+    result.printStatus();
+
+    } catch (Exception e) {
+    e.printStackTrace();
+    }
+    /*
+    try {
+    Method method = CoordinateTransform.getClass().getMethod("calculateAngleFromGyroscope", MPUReadBean.class);
+    method.setAccessible(true);
+    method.invoke(<Object>, <Parameters>);
+        } catch(NoSuchMethodException e) {
+        } catch(IllegalAccessException e) {
+        } catch(InvocationTargetException e) {
+        }
+        */
+        }
+
+        /**
+        *
+        * Method: angleDataFusion()
+        *
+        */
+        @Test
+        public void testAngleDataFusion() throws Exception {
+        //TODO: Test goes here...
+        /*
+        try {
+        Method method = CoordinateTransform.getClass().getMethod("angleDataFusion");
+        method.setAccessible(true);
+        method.invoke(<Object>, <Parameters>);
+            } catch(NoSuchMethodException e) {
+            } catch(IllegalAccessException e) {
+            } catch(InvocationTargetException e) {
+            }
+            */
+            }

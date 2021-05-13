@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+ 
+</head>
+<body>
+<input id="text" type="text" /><button onclick="send()">Send</button>    <button onclick="closeWebSocket()">Close</button>
+<div id="mess"></div>
+ 
+</body>
+<script>
+ 
+    var socket;  
+    if(typeof(WebSocket) == "undefined") {  
+        console.log("您的浏览器不支持WebSocket");  
+    }else{  
+        console.log("您的浏览器支持WebSocket");  
+        	//实现化WebSocket对象，指定要连接的服务器地址与端口  建立连接  
+ 
+            socket = new WebSocket("ws://localhost:8080/websocket/20");  
+            //打开事件  
+            socket.onopen = function() {  
+                console.log("Socket 已打开");    
+            };  
+            //获得消息事件  
+            socket.onmessage = function(msg) {
+            	//alert("接受到服务器信息: "+msg.data);
+            	try {
+                    var nmsl = JSON.parse(msg.data);
+                } catch (err) {
+                    alert("error")
+                }
+               // console.log(nmsl.roll)
+
+            	roll = nmsl.roll
+            	pitch = nmsl.pitch
+            	yaw = nmsl.yaw
+            	x = nmsl.x
+            	y = nmsl.y
+            	z = nmsl.z
+
+
+             //   console.log(a);
+               // console.log(b);
+               // console.log(c);
+                //发现消息进入    开始处理前端触发逻辑
+            };  
+            //关闭事件  
+            socket.onclose = function() {  
+                console.log("Socket已关闭");  
+            };  
+            //发生了错误事件  
+            socket.onerror = function() {  
+                alert("Socket发生了错误");  
+                //此时可以尝试刷新页面
+            }
+            function send() {
+            	 var  txt  = document.getElementById("text").value
+                 socket.send(txt)
+            }
+            function closeWebSocket() {
+           	 
+                socket.onclose
+           }
+            //离开页面时，关闭socket
+            //jquery1.8中已经被废弃，3.0中已经移除
+            // $(window).unload(function(){  
+            //     socket.close();  
+            //});  
+    }
+ 
+</script>
+
+
+canvas {            width: 100%;            height: 100%;            display: block;        }
+</style></head><body onload="init()"><script src="./three.js"></script>
+
+<script>
+    //声明一些全局变量
+    var renderer, camera, scene, geometry, material, mesh, ref, geometry2;
+    var roll, pitch, yaw, x, y, z;
+    //初始化渲染器
+    function initRenderer() {
+        renderer = new THREE.WebGLRenderer(); //实例化渲染器
+        renderer.setSize(window.innerWidth, window.innerHeight); //设置宽和高
+        document.body.appendChild(renderer.domElement); //添加到dom
+    }
+    //初始化场景
+    function initScene() {
+        scene = new THREE.Scene(); //实例化场景
+    }
+    //初始化相机
+    function initCamera() {
+        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 200); //实例化相机
+        camera.position.set(0, 0, 15);
+      //  camera.lookAt({x:0, y:0, z:0});
+    }
+    //创建模型
+    function initMesh() {
+        geometry = new THREE.BoxGeometry( 4, 0.4, 2.8 ); //创建几何体
+        material = new THREE.MeshNormalMaterial(); //创建材质
+        mesh = new THREE.Mesh( geometry, material ); //创建网格
+        geometry2 = new THREE.BoxGeometry( 0.1, 0.1, 0.1 )
+        mesh2 = new THREE.Mesh( geometry2, material )
+        mesh.position.x = 0;
+        mesh.position.y = 0;
+        mesh.position.z = -1.4;
+        roll = 0;
+        pitch = 0;
+        yaw = 0;
+        x = 0;
+        y = 0;
+        z = 0;
+        scene.add( mesh ); //将网格添加到场景
+        scene.add( mesh2 );
+    }    //运行动画
+    function animate() {
+        requestAnimationFrame(animate); //循环调用函数
+        mesh.rotation.x = -roll; //每帧网格模型的沿x轴旋转0.01弧度
+        mesh.rotation.y = yaw; //每帧网格模型的沿y轴旋转0.02弧度
+        mesh.rotation.z = pitch;
+        mesh.rotation.order = "ZYX";
+        mesh.position.x = -x;
+        mesh.position.y = z;
+        mesh.position.z = 0;
+        renderer.render( scene, camera ); //渲染界面
+    }    //初始化函数，页面加载完成是调用
+    function init() {
+        initRenderer();
+        initScene();
+        initCamera();
+        initMesh();
+        animate();
+    }
+
+    function test() {
+        //alert(document.getElementById("roll").value);
+        pitch = document.getElementById("pitch").value;
+        roll = document.getElementById("roll").value;
+        yaw = document.getElementById("yaw").value;
+        console.log("pitch: " + pitch + ", roll: " + roll + ", yaw: " + yaw);
+    }
+
+    </script>
+
+<input id="pitch" type="text" name="pitch" />
+<input id="roll" type="text" name="roll" />
+<input id="yaw" type="text" name="yaw" />
+
+<input type="submit" value="测试"  onclick="test()"/>
+ 
+</html>
