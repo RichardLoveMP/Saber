@@ -14,7 +14,7 @@ public class GreetingServer extends Thread{
     private ServerSocket serverSocket;
 
     public GreetingServer(int port) throws IOException {
-        serverSocket = new ServerSocket(port);
+        serverSocket = new ServerSocket(port) ;
         //serverSocket.setSoTimeout(1000);  // 0 means infinity
     }
 
