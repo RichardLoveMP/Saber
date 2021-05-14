@@ -28,23 +28,30 @@ public class Utilities {
 
     static public MPUReadBean MPUDataParser(String s) {
         // ax=-0.03&ay=-0.11&az=10.38&gx=0.06&gy=0.00&gz=0.02
+
         int i1 = s.indexOf("ax=");
         int i2 = s.indexOf("&ay=");
         int i3 = s.indexOf("&az=");
         int i4 = s.indexOf("&gx=");
         int i5 = s.indexOf("&gy=");
         int i6 = s.indexOf("&gz=");
+        int i7 = s.indexOf("&idx=");
         //String ax = s.substring(i1+3, i2);
         //BigDecimal sss = new BigDecimal(ax);
         //double nmsl = sss.floatValue();
         MPUReadBean bean = new MPUReadBean();
         // Integer.parseInt can't handle negative decimals, so use BigDecimal;
+
+
+
         bean.setX_acc((new BigDecimal(s.substring(i1+3, i2))).floatValue());
         bean.setY_acc((new BigDecimal(s.substring(i2+4, i3))).floatValue());
         bean.setZ_acc((new BigDecimal(s.substring(i3+4, i4))).floatValue());
         bean.setGx((new BigDecimal(s.substring(i4+4, i5)).floatValue()));
         bean.setGy((new BigDecimal(s.substring(i5+4, i6)).floatValue()));
-        bean.setGz((new BigDecimal(s.substring(i6+4, s.length())).floatValue()));
+        bean.setGz((new BigDecimal(s.substring(i6+4, i7)).floatValue()));
+        bean.setIdx((new BigDecimal(s.substring(i7+5, s.length()))).floatValue());
+
 
         return bean;
     }

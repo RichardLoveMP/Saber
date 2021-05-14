@@ -2,7 +2,14 @@ package com.beyondli.bean;
 
 import java.util.Date;
 
+/**
+ * Author: Group 26
+ * Date: 2021/05/14
+ */
 public class MPUReadBean {
+
+
+
     private double x_acc;
     private double y_acc;
     private double z_acc;
@@ -10,6 +17,7 @@ public class MPUReadBean {
     private double gy;
     private double gz;
     private Date date;
+    private double idx;
 
     public MPUReadBean() {}
     public MPUReadBean(double x_acc, double y_acc, double z_acc, double gx, double gy, double gz) {
@@ -25,6 +33,7 @@ public class MPUReadBean {
         System.out.printf("MPU data: ax = %.4f, ay = %.4f, az = %.4f, gx = %.4f, gy = %.4f, gz = %.4f", x_acc, y_acc, z_acc, gx, gy, gz);
         System.out.printf("\n");
     }
+
 
     public double getTotalMagnitude() {
         return Math.sqrt(x_acc*x_acc + y_acc*y_acc + z_acc*z_acc);
@@ -84,5 +93,13 @@ public class MPUReadBean {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public double getIdx() {
+        return idx;
+    }
+
+    public void setIdx(double idx) {
+        this.idx = idx;
     }
 }
